@@ -4,47 +4,58 @@
   <meta charset="utf-8">
   <title>Snake</title>
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <style type="text/css">
+  #container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #canvas {
+    z-index: 0;
+    background-color: #f5f5f5;
+    box-shadow: inset 0px 0px 20px 1px rgba(0,0,0,0.13);
+  }
+  .score {
+    z-index: 500;
+    font-size: 65px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-right: auto;
+    margin-left: auto;
+    z-index: 500;
+    color: #404040;
+    text-align: center;
+    text-shadow: 4px 3px 21px #d6d6d6, 0 0 6em #f5f5f5, 0 0 0.2em #f5f5f5;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Lato', sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  </style>
 </head>
 <body>
-  <div id="settings">
-    <h2 class="title">
-      PLAYERS
-    </h2>
-    <form>
-      <input type="radio" name="player" value="0" >Single player<br>
-      <input type="radio" name="player" id="multi" value="1" checked>Two players<br>
-    </form>
-    <h2 class="title">
-        BORDERS
-      </h2>
-      <form>
-        <input type="radio" name="Borders" value="1" id="iBorders" checked>Infinitive<br>
-        <input type="radio" name="Borders" value="0">Fixed<br>
-      </form >
-    <h2 class="title">
-      GRID
-    </h2>
-    <input type="number" min="40" max="220" step="20" value="40" id="grid-input"/>
-    <h2 class="title">
-      SIZE
-    </h2>
-    <input type="number" min="0.5" max="1" step="0.1" value="0.6" id="size-input"/> <br>
-
-    <button type="button" id="play">GO</button>
-  </div>
   <div id="container">
-    <span id="status"></span>
-    <div class="table">
-      <span id="score1">-</span>
-    </div>
+    <span class="score"></span>
     <canvas id="canvas">
     </canvas>
-    <div class="table">
-      <span id="score2">-</span>
-    </div>
   </div>
-  <a href="https://github.com/DominikFedor/js-snake-game"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
-  <script src="js/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

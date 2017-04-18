@@ -30,11 +30,10 @@ const feeds = [{ x: Math.floor(Math.random() * (grid - 1)) + 1,
   y: Math.floor(Math.random() * (grid - 1)) + 1 }] // first feed random position
 
 function movecells(snake, i) { // ( snakeID, current cell )
-  if (breakPoints[snake].length > cells[snake].length) breakPoints[snake].shift()
   breakPoints[snake].map((breakPoint) => { // handling individual cell breakpoints
     if (cells[snake][i].x === breakPoint.x && cells[snake][i].y === breakPoint.y) { //
-      cells[snake][i].d = breakPoint.d // redirecting cells[0] dir to breakpoint dir
-      if (i === cells[snake].length - 1) breakPoints[snake].shift()
+      cells[snake][i].d = breakPoint.d // redirecting current cell direction to breakpoint direction
+      if (i === cells[snake].length - 1) breakPoints[snake].shift() // removing breakpoint after use of last cell
     }
   })
   switch (cells[snake][i].d) { // cell movements according to moving direction
@@ -85,7 +84,6 @@ function clearSnake(snake) { // erasing cells for the next frame
   })
 }
 function moveBody(snake) {
-  setTimeout(() => {
     clearSnake(snake)
     cells[snake].map((cell, i) => {
       movecells(snake, i)
@@ -147,7 +145,6 @@ function moveBody(snake) {
       ctx.fillStyle = '#404040' // feed colour
       ctx.fillRect(feed.x * s, feed.y * s, s, s)
     })
-  }, 100)
 }
 window.onkeyup = function (e) {
   const key = e.keyCode ? e.keyCode : e.which

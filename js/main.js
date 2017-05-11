@@ -1,12 +1,17 @@
-var canvas = document.getElementById('canvas');
-var score1 = document.getElementById('score1');
-var score2 = document.getElementById('score2');
-var div = document.getElementById('settings');
-var grid = 40;
-var s = Math.floor(window.innerHeight * 1 / grid);
-canvas.width = s * grid;
-canvas.height = s * grid;
-var ctx = canvas.getContext('2d');
+var canvas = document.getElementById('canvas')
+var score1 = document.getElementById('score1')
+var score2 = document.getElementById('score2')
+var gridInput = document.getElementById('grid-input')
+var sizeInput = document.getElementById('size-input')
+var div = document.getElementById('settings')
+var play = document.getElementById('play')
+var playersOption = document.getElementById('multi')
+var BordersOption = document.getElementById('iBorders')
+var grid = gridInput.value
+var s = Math.floor(window.innerHeight * sizeInput.value / grid)
+canvas.width = s * grid
+canvas.height = s * grid
+var ctx = canvas.getContext('2d')
 var cells = [[], []]; // snake cells/parts
 var breakPoints = [[], []]; // breakpoints for snake cells
 var paused = false;
@@ -190,15 +195,29 @@ window.onkeyup = function (e) {
     default:
   }
 };
-score1.innerHTML = String(cells[0].length - 1);
-if (multi) score2.innerHTML = String(cells[1].length - 1);
-setInterval(function () {
-  if (!paused) {
-    moveBody(0);
+play.onclick = function () { // game started
+  if (div.style.display !== 'none') {
+    div.style.display = 'none'
+  } else {
+    div.style.display = 'block'
   }
-  if (multi) {
+  multi = playersOption.checked
+  score1.innerHTML = String(cells[0].length - 1)
+  if (multi) score2.innerHTML = String(cells[1].length - 1)
+  infBorders = BordersOption.checked  // updated options ...
+  grid = gridInput.value
+  console.log(sizeInput.value)
+  s = Math.floor(window.innerHeight * sizeInput.value / grid)
+  canvas.width = s * grid
+  canvas.height = s * grid
+  setInterval(() => {
     if (!paused) {
-      moveBody(1);
+      moveBody(0)
     }
-  }
-}, 60); // move speed
+    if (multi) {
+      if (!paused) {
+        moveBody(1)
+      }
+    }
+  }, 60) // move speed
+}

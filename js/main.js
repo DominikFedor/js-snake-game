@@ -17,6 +17,7 @@ var breakPoints = [[], []]; // breakpoints for snake cells
 var paused = false;
 var multi = true;
 var infBorders = true;
+var col = false;
 for (var x = 0; x <= 1; x += 1) {
   cells[0].push({ x: 2 - x, y: 0, d: 'R' }); // pushing initial cells' positions and directions
 }

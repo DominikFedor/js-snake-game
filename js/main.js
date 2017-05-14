@@ -92,30 +92,39 @@ function clearSnake(snake) {
 }
 function moveBody(snake) {
   clearSnake(snake);
-
     for (var _u = 0; _u < cells[snake].length; _u += 1) {
-    movecells(snake, _u);
-    if (_u > 0 && cells[snake][0].x === cells[snake][_u].x && cells[snake][0].y === cells[snake][_u].y || // head reaching other body cells[0]
-    !infBorders && (cells[snake][0].x >= grid || cells[snake][0].x < 0 || // head reaching horizontal borders
-    cells[snake][0].y >= grid || cells[snake][0].y < 0)) {
-      // head reaching vertical borders
-      if (cells[0].length !== cells[1].length && multi) {
-        // multiplayer score comparison
-        if (snake === 1) {
-          document.getElementById('status').innerHTML = String('Blue won');
-          document.getElementById('status').style.color = '#1E88E5';
-          score2.innerHTML = String('-');
-        } else {
-          document.getElementById('status').innerHTML = String('Red won');
-          document.getElementById('status').style.color = '#EF5350';
-          score1.innerHTML = String('-');
+        movecells(snake, _u);
+        for (var _p = 0; _p < cells[0].length; _p += 1) { // detecting collision of first snake
+            if (cells[1][0].x === cells[0][_p].x && cells[1][0].y === cells[0][_p].y) {
+                col = true;
+            }
         }
-      } else {
-        multi ? document.getElementById('status').innerHTML = String('Draw') : document.getElementById('status').innerHTML = String('Game over'); // single player
-      }
-      paused = true;
+        for (var _d = 0; _d < cells[1].length; _d += 1) { // detecting collision of second snake
+            if (cells[0][0].x === cells[1][_d].x && cells[0][0].y === cells[1][_d].y) {
+                col = true;
+            }
+        }
+        if (col || _u > 0 && cells[snake][0].x === cells[snake][_u].x && cells[snake][0].y === cells[snake][_u].y || // head reaching other body cells[0]
+            !infBorders && (cells[snake][0].x >= grid || cells[snake][0].x < 0 || // head reaching horizontal borders
+                cells[snake][0].y >= grid || cells[snake][0].y < 0)) {
+            // head reaching vertical borders
+            if (multi) {
+                // multiplayer score comparison
+                if (snake === 1) {
+                    document.getElementById('status').innerHTML = String('Blue won');
+                    document.getElementById('status').style.color = '#1E88E5';
+                    score2.innerHTML = String('-');
+                } else {
+                    document.getElementById('status').innerHTML = String('Red won');
+                    document.getElementById('status').style.color = '#EF5350';
+                    score1.innerHTML = String('-');
+                }
+            } else {
+                document.getElementById('status').innerHTML = String('Game over'); // single player
+            }
+            paused = true;
+        }
     }
-}
     for (var _f = 0; _f < feeds.length; _f += 1) {
     if (feeds[_f].x === cells[snake][0].x && feeds[_f].y === cells[snake][0].y) {
       // head reaching feed
